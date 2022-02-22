@@ -7,50 +7,78 @@
 		<meta name="theme-color" content="#ffffff" />
 		<meta name="description" content="This is my pizza tribute." />
 		<style>
-			@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap');
-
-			body {
-				font-family: 'Nunito', 'Arial Rounded MT Bold', Arial;
+			* {
+				font-family: sans-serif;
+				font-size: inherit;
+				margin: 0;
+				padding: 0;
+				line-height: 1.5em;
+				color: black;
 			}
 			div {
-				position: fixed;
+				position: absolute;
 				top: 50%;
 				left: 50%;
 				transform: translate(-50%, -50%);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				width: 13em;
 			}
-			a {
-				height: 200px;
-				display: block;
-				margin-top: 10px;
+			article {
+				margin-top: 1em;
+				width: 100%;
+				white-space: nowrap;
 			}
-			div {
-				text-align: center;
-				font-size: 3em;
-			}
+			aside,
 			img {
-				width: auto;
-				height: 100%;
-				margin: auto;
-				position: relative;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-			}
-			em {
-				font-style: normal;
+				width: 100%;
 				display: block;
-				text-align: center;
-				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+				height: auto;
+			}
+			p {
+				margin: 0;
+			}
+			h1 {
+				margin-bottom: 1em;
+				font-weight: bold;
+			}
+			a:hover {
+				background-color: black;
+				color: white;
 			}
 		</style>
 	</head>
 	<body>
 		<div>
-			<em>only god</em>
-			<a href="https://github.com/wvbe">
-				<img alt="Line drawing of pizza" src="pizza.png"
-			/></a>
-			<em>can judge me</em>
+			<aside>
+				<img
+					src="wybe.png"
+					alt="A picture of a picture of my face"
+					title="This is my face"
+				/>
+			</aside>
+			<article>
+				<header>
+					<h1>🍕 wybe</h1>
+					<p>
+						<a href="https://en.wikipedia.org/wiki/UEFA_Euro_1988_Final" target="_blank"
+							>1988</a
+						>
+						<a href="https://en.wikipedia.org/wiki/Male" target="_blank">M</a>
+						<a href="https://en.wikipedia.org/wiki/Netherlands" target="_blank">NL</a>
+					</p>
+					<p>
+						<a href="https://github.com/wvbe" class="button">code</a>,
+						<a href="https://www.instagram.com/wvvbe/" class="button">photo</a>,
+						<a href="https://www.linkedin.com/in/wybe/" class="button">work</a>,
+						<a href="https://www.npmjs.com/~wvbe" class="button">m</a
+						><a href="https://www.facebook.com/wvvbe/" class="button">i</a
+						><a href="https://wvvbe.medium.com/" class="button">s</a
+						><a href="https://twitter.com/wvbe" class="button">c</a>
+					</p>
+				</header>
+			</article>
 		</div>
 	</body>
 </html>
