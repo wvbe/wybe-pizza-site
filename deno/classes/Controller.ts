@@ -154,7 +154,7 @@ export class Controller {
 		this.controls.addEventListener('change', handleCameraChange);
 		this.$destruct.once(() => this.controls.removeEventListener('change', handleCameraChange));
 
-		const handleClick = this._handleClick.bind(this);
+		const handleClick = this.$click.emit.bind(this.$click);
 		this.root.addEventListener('click', handleClick);
 		this.$destruct.once(() => this.root.removeEventListener('click', handleClick));
 	}
@@ -200,24 +200,6 @@ export class Controller {
 
 		this.setCameraFocusOnVector3(center);
 	}
-	/**
-	 * Handle a mouse click anywhere in the ThreeJS canvas. Use raycasting to find the objects the
-	 * click ray intersects with. Then emits an event ($clickTile or $clickEntity) accordingly.
-	 */
-	private _handleClick(event: MouseEvent) {
-		// // https://stackoverflow.com/questions/12800150/
-		// this.raycaster.setFromCamera(
-		// 	new Vector2(
-		// 		(event.offsetX / this.root.clientWidth) * 2 - 1,
-		// 		-(event.offsetY / this.root.clientHeight) * 2 + 1
-		// 	),
-		// 	this.camera
-		// );
-		// const intersections = this.raycaster.intersectObjects(this.scene.children, true);
-
-		// If click wasn't anything more specific, trigger a normal click event and include all intersections.
-		this.$click.emit(event);
-	}
 
 	private getViewportSize() {
 		const boundingClientRect = this.root.getBoundingClientRect();
@@ -232,7 +214,6 @@ export class Controller {
 	 */
 	public startAnimationLoop() {
 		if (this.animating) {
-			// @TODO maybe just return early.
 			throw new Error('Animation already started');
 		}
 

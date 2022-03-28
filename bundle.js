@@ -21010,7 +21010,7 @@ class Controller {
         this.controls.addEventListener('change', handleCameraChange);
         this.$destruct.once(()=>this.controls.removeEventListener('change', handleCameraChange)
         );
-        const handleClick = this._handleClick.bind(this);
+        const handleClick = this.$click.emit.bind(this.$click);
         this.root.addEventListener('click', handleClick);
         this.$destruct.once(()=>this.root.removeEventListener('click', handleClick)
         );
@@ -21037,9 +21037,6 @@ class Controller {
         geometry.boundingBox?.getCenter(center);
         mesh.localToWorld(center);
         this.setCameraFocusOnVector3(center);
-    }
-    _handleClick(event) {
-        this.$click.emit(event);
     }
     getViewportSize() {
         const boundingClientRect = this.root.getBoundingClientRect();
