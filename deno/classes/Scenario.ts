@@ -46,7 +46,8 @@ export class Scenario extends Controller {
 
 		const applyMaterialToMesh = () => {
 			const material = new THREE.MeshPhongMaterial({
-				color: this.darkMode ? 0xcccccc : 0x333333
+				color: this.darkMode ? 0xcccccc : 0x333333,
+				wireframe: false
 			});
 			gltf.scene.traverse(o => {
 				if (o instanceof THREE.Mesh) {

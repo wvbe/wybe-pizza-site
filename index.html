@@ -3,7 +3,10 @@
 	<head>
 		<title>🍕://wybe</title>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta
+			name="viewport"
+			content="width=device-width, minimum-scale=1.0, maximum-scale = 1.0, user-scalable = no"
+		/>
 		<meta name="theme-color" content="#ffffff" />
 		<meta name="description" content="This is my pizza tribute." />
 		<style>
@@ -21,11 +24,11 @@
 			html,
 			body,
 			#three {
-				width: 100vw;
-				height: 100vh;
+				width: 100%;
+				height: 100%;
 				margin: 0;
 				padding: 0;
-				overflow: none;
+				overflow: hidden;
 			}
 			body {
 				background-color: var(--background);
@@ -34,10 +37,11 @@
 
 			#ui {
 				position: absolute;
-				top: 60%;
+				top: 65%;
 				left: 50%;
 				transform: translate(-50%, -50%);
 				text-align: center;
+				white-space: nowrap;
 			}
 			button,
 			a {
@@ -46,7 +50,7 @@
 				background-color: transparent;
 				color: var(--foreground);
 				display: inline-block;
-				padding: 0.5em 0.5em;
+				padding: 1em;
 				font-size: 0.6em;
 				text-decoration: none;
 				font-weight: bold;
@@ -72,7 +76,7 @@
 					enablePan: false,
 					enableZoom: true,
 					fieldOfView: 45,
-					pixelRatio: 1,
+					pixelRatio: window.devicePixelRatio || 1,
 					restrictCameraAngle: false
 				});
 				controller.start();

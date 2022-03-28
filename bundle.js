@@ -21122,7 +21122,8 @@ class Scenario extends Controller {
         const gltf = await this.addGltf('gltf/pizza-low-res.gltf');
         const applyMaterialToMesh = ()=>{
             const material = new Ia({
-                color: this.darkMode ? 13421772 : 3355443
+                color: this.darkMode ? 13421772 : 3355443,
+                wireframe: false
             });
             gltf.scene.traverse((o)=>{
                 if (o instanceof lt) {
