@@ -7,6 +7,17 @@
 		<meta name="theme-color" content="#ffffff" />
 		<meta name="description" content="This is my pizza tribute." />
 		<style>
+			body,
+			body.daylight {
+				--background: #fff;
+				--foreground: #000;
+				--special: orange;
+			}
+			body.nightlight {
+				--background: #000;
+				--foreground: #fff;
+				--special: orange;
+			}
 			html,
 			body,
 			#three {
@@ -16,6 +27,10 @@
 				padding: 0;
 				overflow: none;
 			}
+			body {
+				background-color: var(--background);
+				color: var(--background);
+			}
 
 			#ui {
 				position: absolute;
@@ -24,17 +39,28 @@
 				transform: translate(-50%, -50%);
 				text-align: center;
 			}
+			button,
 			a {
 				font-family: sans-serif;
 				text-transform: uppercase;
-				color: white;
-				background-color: black;
+				background-color: transparent;
+				color: var(--foreground);
 				display: inline-block;
 				padding: 0.5em 0.5em;
 				font-size: 0.6em;
+				text-decoration: none;
+				font-weight: bold;
+				transition: background-color 0.3s;
+				border: none;
 			}
+			button:hover,
 			a:hover {
-				background-color: orange;
+				background-color: var(--special);
+			}
+			#toggle-light-mode {
+				position: absolute;
+				bottom: 0;
+				right: 0;
 			}
 		</style>
 		<script type="module" src="bundle.js"></script>
@@ -57,23 +83,71 @@
 	</head>
 	<body>
 		<div id="three"></div>
+		<button id="toggle-light-mode" onClick="javascript:controller.toggleLightMode()">
+			night & day
+		</button>
 		<div id="ui">
 			<!-- <p>🍕</p> -->
 			<p>
-				<a href="https://en.wikipedia.org/wiki/UEFA_Euro_1988_Final" target="_blank"
+				<a
+					href="https://en.wikipedia.org/wiki/1988"
+					target="_blank"
+					title="I was born in 1988, click here to learn more about that year."
 					>1988</a
 				>
-				<a href="https://en.wikipedia.org/wiki/Male" target="_blank">M</a>
-				<a href="https://en.wikipedia.org/wiki/Netherlands" target="_blank">NL</a>
+				<a
+					href="https://en.wikipedia.org/wiki/Male"
+					target="_blank"
+					title="I was born as a male, click here to learn what that means to some people."
+					>M</a
+				>
+				<a
+					href="https://en.wikipedia.org/wiki/Netherlands"
+					target="_blank"
+					title="I was born in the Netherlands, click here to learn more about that swamp."
+					>NL</a
+				>
 			</p>
 			<p>
-				<a href="https://github.com/wvbe" class="button">Code</a>
-				<a href="https://www.instagram.com/wvvbe/" class="button">Photo</a>
-				<a href="https://www.linkedin.com/in/wybe/" class="button">Work</a>
-				<a href="https://www.npmjs.com/~wvbe" class="button">M</a
-				><a href="https://www.facebook.com/wvvbe/" class="button">i</a
-				><a href="https://wvvbe.medium.com/" class="button">s</a
-				><a href="https://twitter.com/wvbe" class="button">c</a>
+				<a
+					href="https://github.com/wvbe"
+					class="button"
+					title="GitHub is where I keep my public code, click here to visit."
+					>Code</a
+				>
+				<a
+					href="https://www.instagram.com/wvvbe/"
+					class="button"
+					title="Instagram is where I upload some of my prettier photos, click here to visit."
+					>Photo</a
+				>
+				<a
+					href="https://www.linkedin.com/in/wybe/"
+					class="button"
+					title="LinkedIn is where you can find my professional life, click here to visit."
+					>Work</a
+				>
+				<a
+					href="https://www.npmjs.com/~wvbe"
+					class="button"
+					title="I maintain some open-source software for NodeJS, click here to visit."
+					>M</a
+				><a
+					href="https://www.facebook.com/wvvbe/"
+					class="button"
+					title="I used to be on Facebook every day, but not so much any more. Click here to visit."
+					>i</a
+				><a
+					href="https://wvvbe.medium.com/"
+					class="button"
+					title="If I were to blog, I'd do it here. Click here to visit."
+					>s</a
+				><a
+					href="https://twitter.com/wvbe"
+					class="button"
+					title="I've tweeted in anger a few times, click here to visit."
+					>c</a
+				>
 			</p>
 		</div>
 	</body>

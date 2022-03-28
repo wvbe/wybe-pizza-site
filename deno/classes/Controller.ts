@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Event } from './Event.ts';
-
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 type ThreeControllerOptions = {
 	/**
 	 * Set to `Infinity` for isometric view, or a value between 45 and 70 for a normal-ish camera
@@ -20,6 +20,9 @@ type ThreeControllerOptions = {
 // main renderer, and the screen goes blank.
 const RENDERER_BY_ELEMENT = new WeakMap<HTMLElement, THREE.WebGLRenderer | null>();
 
+const DRACO_LOADER = new DRACOLoader(new THREE.LoadingManager()).setDecoderPath(
+	`https://unpkg.com/three@0.${THREE.REVISION}.x/examples/js/libs/draco/gltf/`
+);
 export class Controller {
 	public animating = false;
 
@@ -139,19 +142,6 @@ export class Controller {
 		// @TODO maybe can be global?
 		this.raycaster = new THREE.Raycaster();
 
-		const light = new THREE.AmbientLight(0xffffff, 0.3);
-		this.scene.add(light);
-
-		const light2 = new THREE.DirectionalLight(0xffffff, 0.7);
-		light2.position.set(1, 1, 1).normalize();
-		this.scene.add(light2);
-		// this.scene.add(new THREE.DirectionalLightHelper(light2, 1));
-
-		const light3 = new THREE.DirectionalLight(0xffffff, 0.5);
-		light3.position.set(-1, 1, -1).normalize();
-		this.scene.add(light3);
-		// this.scene.add(new THREE.DirectionalLightHelper(light3, 1));
-
 		// Mount the goddamn thing
 		root.appendChild(this.renderer.domElement);
 		this.$destruct.once(() => root.removeChild(this.renderer.domElement));
@@ -259,37 +249,36 @@ export class Controller {
 		animate();
 	}
 
-	addGltf(path: string) {
+	addGltf(path: string): Promise<GLTF> {
 		// Instantiate a loader
-		const loader = new GLTFLoader();
+		const loader = new GLTFLoader().setDRACOLoader(DRACO_LOADER);
 		// loader.setPath(path);
 		// Load a glTF resource
-		loader.load(
-			// resource URL
-			path,
-			// called when the resource is loaded
-			gltf => {
-				this.scene.add(gltf.scene);
+		return new Promise((resolve, reject) =>
+			loader.load(
+				// resource URL
+				path,
+				// called when the resource is loaded
+				gltf => {
+					this.scene.add(gltf.scene);
 
-				gltf.scene.scale.set(2, 2, 2);
-				gltf.scene.position.x = 0; //Position (x = right+ left-)
-				gltf.scene.position.y = 0; //Position (y = up+, down-)
-				gltf.scene.position.z = 0; //Position (z = front +, back-)
+					gltf.scene.scale.set(2, 2, 2);
+					gltf.scene.position.x = 0; //Position (x = right+ left-)
+					gltf.scene.position.y = 0; //Position (y = up+, down-)
+					gltf.scene.position.z = 0; //Position (z = front +, back-)
 
-				// gltf.animations; // Array<THREE.AnimationClip>
-				// gltf.scene; // THREE.Group
-				// gltf.scenes; // Array<THREE.Group>
-				// gltf.cameras; // Array<THREE.Camera>
-				// gltf.asset; // Object
-			},
-			// called while loading is progressing
-			xhr => {
-				console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-			},
-			// called when loading has errors
-			_error => {
-				console.log('An error happened');
-			}
+					// gltf.animations; // Array<THREE.AnimationClip>
+					// gltf.scene; // THREE.Group
+					// gltf.scenes; // Array<THREE.Group>
+					// gltf.cameras; // Array<THREE.Camera>
+					// gltf.asset; // Object
+					resolve(gltf);
+				},
+				xhr => {
+					console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+				},
+				reject
+			)
 		);
 	}
 
