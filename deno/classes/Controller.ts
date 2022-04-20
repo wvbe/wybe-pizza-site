@@ -4,9 +4,6 @@ import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Event } from './Event.ts';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 type ThreeControllerOptions = {
-	/**
-	 * Set to `Infinity` for isometric view, or a value between 45 and 70 for a normal-ish camera
-	 */
 	fieldOfView: number;
 	pixelRatio: number;
 	enableAutoRotate: boolean;

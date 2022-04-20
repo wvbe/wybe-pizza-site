@@ -21088,12 +21088,12 @@ class Controller {
 }
 const PREFER_DARK_MODE = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 class Scenario extends Controller {
-    start() {
+    start(useHighRes) {
         console.group('Setup scenario');
         this.setCameraPosition(new w(0, 0, -6));
         this.setCameraFocusOnVector3(new w(0, 0, 0));
         this.setLightMode(this.darkMode);
-        this.startLowRes();
+        useHighRes ? this.startHighRes() : this.startLowRes();
         this.startAnimationLoop();
         console.groupEnd();
     }
@@ -21132,7 +21132,7 @@ class Scenario extends Controller {
         this.$detach.on(this.$light.on(applyMaterialToMesh));
     }
     startHighRes() {
-        const ambient = new Za(16777215, 0.8);
+        const ambient = new Za(16777215, 1);
         this.scene.add(ambient);
         const directional1 = new Ya(16777215, 1.4);
         directional1.position.set(0.3, 0, -1).normalize();

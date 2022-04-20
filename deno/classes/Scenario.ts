@@ -5,12 +5,12 @@ const PREFER_DARK_MODE =
 	window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
 export class Scenario extends Controller {
-	start() {
+	start(useHighRes: boolean) {
 		console.group('Setup scenario');
 		this.setCameraPosition(new THREE.Vector3(0, 0, -6));
 		this.setCameraFocusOnVector3(new THREE.Vector3(0, 0, 0));
 		this.setLightMode(this.darkMode);
-		this.startLowRes();
+		useHighRes ? this.startHighRes() : this.startLowRes();
 		this.startAnimationLoop();
 		console.groupEnd();
 	}
@@ -61,7 +61,7 @@ export class Scenario extends Controller {
 		this.$detach.on(this.$light.on(applyMaterialToMesh));
 	}
 	startHighRes() {
-		const ambient = new THREE.AmbientLight(0xffffff, 0.8);
+		const ambient = new THREE.AmbientLight(0xffffff, 1);
 		this.scene.add(ambient);
 
 		const directional1 = new THREE.DirectionalLight(0xffffff, 1.4);

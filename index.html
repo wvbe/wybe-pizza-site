@@ -13,7 +13,7 @@
 			body,
 			body.daylight {
 				--background-alt: #fff;
-				--background: #ccc;
+				--background: #ddd;
 				--foreground: #000;
 				--special: orange;
 			}
@@ -67,6 +67,7 @@
 				transition: background-color 0.3s;
 				border: none;
 				touch-action: none;
+				border-radius: 5px;
 			}
 			button:hover,
 			a:hover {
@@ -81,6 +82,7 @@
 		<script type="module" src="bundle.js"></script>
 		<script type="module">
 			import { Scenario } from './bundle.js';
+			const loadHiResInsteadOfLowRes = window.localStora;
 			window.onload = () => {
 				const controller = new Scenario(document.getElementById('three'), {
 					enableAutoRotate: false,
@@ -90,7 +92,18 @@
 					pixelRatio: window.devicePixelRatio || 1,
 					restrictCameraAngle: false
 				});
-				controller.start();
+
+				const toggleLightModeButton = document.getElementById('toggle-light-mode');
+				toggleLightModeButton.onclick = () => controller.toggleLightMode();
+				controller.$light.on(() => {
+					toggleLightModeButton.textContent = controller.darkMode
+						? 'Night turns day'
+						: 'Day turns night';
+				});
+
+				// Start "high res" version if URL search string contains "hi-res"
+				controller.start(window.location.search.includes('hi-res'));
+
 				window.controller = controller;
 				console.log('Controller:', controller);
 			};
@@ -98,11 +111,11 @@
 	</head>
 	<body>
 		<div id="three"></div>
-		<button id="toggle-light-mode" onClick="javascript:controller.toggleLightMode()">
-			night & day
-		</button>
+
+		<!-- Tee-hee, referencing Aesop Rock's album Daylight here. -->
+		<button id="toggle-light-mode">Day turns night</button>
+
 		<div id="ui">
-			<!-- <p>🍕</p> -->
 			<p>
 				<a
 					href="https://en.wikipedia.org/wiki/1988"

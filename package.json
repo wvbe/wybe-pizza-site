@@ -5,10 +5,11 @@
 	"private": true,
 	"license": "NONE",
 	"scripts": {
+		"start": "npx concurrently \"npm run python3\" \"npm run bundle -- --watch\"",
 		"python2": "python -m SimpleHTTPServer 8000",
 		"python": "python -m http.server 8000",
 		"python3": "python3 -m http.server 8000",
-		"start": "deno run --import-map=import-map.json ./deno/pizza.ts",
+		"run": "deno run --import-map=import-map.json ./deno/pizza.ts",
 		"test": "deno test --import-map=import-map.json",
 		"bundle": "deno bundle --import-map=import-map.json ./deno/pizza.ts ./bundle.js",
 		"compile": "deno compile --import-map=import-map.json ./deno/pizza.ts",
