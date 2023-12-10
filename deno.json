@@ -1,5 +1,11 @@
 {
 	"compilerOptions": {
 		"lib": ["esnext", "dom", "dom.iterable"]
-	}
+	},
+	"tasks": {
+		"python": "python3 -m http.server 8000",
+		"bundle": "deno bundle ./deno/pizza.ts ./bundle.js",
+		"dev": "npx concurrently \"deno task python\" \"deno task bundle --watch\""
+	},
+	"importMap": "./imports.json"
 }
